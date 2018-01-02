@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fx.core.dao.mapper.mybatis.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.fx.core.dao.model.User" >
+    <constructor >
+      <idArg column="USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ACCOUNT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MOBILE_PHONE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="E_MAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PASSWD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SALT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IS_LOCKED" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PASSWD_EXPIRED" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATED_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATED_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATED_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, ACCOUNT, NAME, MOBILE_PHONE, E_MAIL, PASSWD, SALT, IS_LOCKED, PASSWD_EXPIRED, 
+    CREATED_BY, CREATED_DATE, UPDATED_BY, UPDATED_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fx.core.dao.model.User" >
+    insert into t_user (USER_ID, ACCOUNT, NAME, 
+      MOBILE_PHONE, E_MAIL, PASSWD, 
+      SALT, IS_LOCKED, PASSWD_EXPIRED, 
+      CREATED_BY, CREATED_DATE, UPDATED_BY, 
+      UPDATED_DATE)
+    values (#{userId,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=INTEGER}, #{eMail,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{isLocked,jdbcType=VARCHAR}, #{passwdExpired,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fx.core.dao.model.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="eMail != null" >
+        E_MAIL,
+      </if>
+      <if test="passwd != null" >
+        PASSWD,
+      </if>
+      <if test="salt != null" >
+        SALT,
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED,
+      </if>
+      <if test="passwdExpired != null" >
+        PASSWD_EXPIRED,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null" >
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=VARCHAR},
+      </if>
+      <if test="passwdExpired != null" >
+        #{passwdExpired,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fx.core.dao.model.User" >
+    update t_user
+    <set >
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null" >
+        E_MAIL = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        PASSWD = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        SALT = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="isLocked != null" >
+        IS_LOCKED = #{isLocked,jdbcType=VARCHAR},
+      </if>
+      <if test="passwdExpired != null" >
+        PASSWD_EXPIRED = #{passwdExpired,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fx.core.dao.model.User" >
+    update t_user
+    set ACCOUNT = #{account,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=INTEGER},
+      E_MAIL = #{eMail,jdbcType=VARCHAR},
+      PASSWD = #{passwd,jdbcType=VARCHAR},
+      SALT = #{salt,jdbcType=VARCHAR},
+      IS_LOCKED = #{isLocked,jdbcType=VARCHAR},
+      PASSWD_EXPIRED = #{passwdExpired,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

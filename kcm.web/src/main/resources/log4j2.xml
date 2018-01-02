@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出。 -->
+<configuration status="info" packages="com.pa.market">
+	<appenders>
+		<!--这个输出控制台的配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss} %-5p - %msg%n" />
+			<!-- 设置级别 -->
+			<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="NEUTRAL" />
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="NEUTRAL" />
+			<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY" />
+			<ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="/data/logs/market-claims.log"
+			filePattern="/data/logs/market-claims.%d{yyyy-MM-dd}.%i.log">
+			<PatternLayout>
+				<charset>UTF-8</charset>
+				<Pattern>%d{HH:mm:ss} %-5p - %msg%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="256 MB" />
+			</Policies>
+		</RollingFile>
+	</appenders>
+	<loggers>
+		<!--<logger name ="org.apache.http" level ="warn" />
+		<logger name ="org.springframework" level ="warn" />-->
+		<logger name ="com.fx.core.dataSource" level ="debug" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</logger>
+
+		<AsyncRoot level="info">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</AsyncRoot>
+	</loggers>
+</configuration>
